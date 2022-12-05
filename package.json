@@ -168,9 +168,5 @@
     "start": "node server.js"
   },
   "author": "Siyovush",
-  "license": "ISC",
-  "engines": {
-    "node": "16.16.0",
-    "npm": "8.5.1"
-  }
+  "license": "ISC"
 }
