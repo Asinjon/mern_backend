@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div className="wrapper">
+        <div className="sign__in-page">
+            <div className="container__bg">
+                <div id="circle-small"></div>
+                <div id="circle-medium"></div>
+                <div id="circle-large"></div>
+                <div id="circle-xlarge"></div>
+                <div id="circle-xxlarge"></div>
+            </div>
+            <div className="container">
+                <div className="container__wrapper">
+                    <div className="slider">
+                        <div className="slider__wrapper">
+                            <Link to="/" className="link">
+                                <img src={public_folder + "logo-full.png"} alt="Logotype" />
+                            </Link>
+                            <div className="slider__content">
+                                    <ul className="swiper-wrapper">
+                                        <li className="swiper-slide">
+                                            <img src={public_folder + "login/1.png"} alt="User 1" />
+                                            <h3>Find new friends</h3>
+                                            <p>It is a long established fact that a reader <br /> 
+                                                will be distracted by the readable <br /> 
+                                                content.</p>
+                                        </li>
+                                        <li className="swiper-slide">
+                                            <img src={public_folder + "login/2.png"} alt="User 2" />
+                                            <h3>Connect with the World</h3>
+                                            <p>It is a long established fact that a reader <br /> 
+                                                will be distracted by the readable <br /> 
+                                                content.</p>
+                                        </li>
+                                        <li className="swiper-slide">
+                                            <img src={public_folder + "login/3.png"} alt="User 3" />
+                                            <h3>Create new Events</h3>
+                                            <p>It is a long established fact that a reader <br /> 
+                                                will be distracted by the readable <br /> 
+                                                content.</p>
+                                        </li>
+                                    </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="form">
+                        <% if (message) { %>
+                            <h2 style="color: red;"><%= message %></h2>
+                        <% } %>
+                        <!-- <Link to="/signin" class="link">Go to login page</Link>
+                        <Link to="/reset" class="link">Reset password</Link> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
