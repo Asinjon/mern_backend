@@ -140,14 +140,16 @@ userRoutes.post("/signin", async (request, response) => {
                                 data.isLogged = true;
                                 console.log("USER has successfully logged in!");
                                 console.log("userDataId in /signin/:", userDataId);
-                                const userDatas = await UserData.findById(userDataId);
-                                console.log("userDatas in /signin/:", userDatas);
-                                if (userDatas === null) {
+                                try {
+                                    const userDatas = await UserData.findById(userDataId);
+                                } catch (e) {
                                     const userData = new UserData({data: result[0]});
                                     const savedUserData = await userData.save();
                                     console.log("savedUserData while signin:", savedUserData);
-                                    response.json({data, userDataId: savedUserData._id});
-                                } else if (Object.keys(userDatas[0].data).length === 0) {
+                                    return response.json({data, userDataId: savedUserData._id});
+                                }
+                                console.log("userDatas in /signin/:", userDatas);
+                                if (Object.keys(userDatas[0].data).length === 0) {
                                     const newUserData = await UserData.findByIdAndUpdate(userDataId, {$set: {data: result[0]}}, {new: true});
                                     console.log("newUserData while signin:", newUserData);
                                     response.json({data, userDataId: newUserData._id});
