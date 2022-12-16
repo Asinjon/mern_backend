@@ -198,20 +198,19 @@ userRoutes.post("/signin/user", async (request, response) => {
     console.log("req.body.userDataId in /signin/user:", request.body.userDataId);
     try {
         const savedUserData = await UserData.findById(request.body.userDataId);
+        if (savedUserData.length === 0) {
+            response.send({isLogged: false});
+        } else {
+            console.log("savedUserData in get(signin):", savedUserData);
+            if (savedUserData !== null && Object.keys(savedUserData.data).length > 0) {
+                response.send({user: savedUserData.data, isLogged: true, userDataId: savedUserData._id});
+            } else {
+                response.send({isLogged: false});
+            }
+    }
     } catch (e) {
         console.log("e.message in /signin/user:", e.message);
         return response.send({isLogged: false});
-    }
-    console.log("savedUserData in /signin/user:", savedUserData);
-    if (savedUserData.length === 0) {
-        response.send({isLogged: false});
-    } else {
-        console.log("savedUserData in get(signin):", savedUserData);
-        if (savedUserData !== null && Object.keys(savedUserData.data).length > 0) {
-            response.send({user: savedUserData.data, isLogged: true, userDataId: savedUserData._id});
-        } else {
-            response.send({isLogged: false});
-        }
     }
 });
 
