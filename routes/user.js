@@ -140,7 +140,7 @@ userRoutes.post("/signin", async (request, response) => {
                                 data.isLogged = true;
                                 console.log("USER has successfully logged in!");
                                 const userDatas = await UserData.findById(userDataId);
-                                if (userDatas.length === 0) {
+                                if (userDatas === null) {
                                     const userData = new UserData({data: result[0]});
                                     const savedUserData = await userData.save();
                                     console.log("savedUserData while signin:", savedUserData);
