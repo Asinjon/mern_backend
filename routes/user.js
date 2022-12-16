@@ -101,7 +101,7 @@ userRoutes.post("/signup", (request, response) => {
     }
 });
 userRoutes.post("/signin", async (request, response) => {
-    let {email, password} = request.body;
+    let {email, userDataId, password} = request.body;
     console.log("email:", email);
     console.log("password:", password);
     email = email.trim();
@@ -139,19 +139,19 @@ userRoutes.post("/signin", async (request, response) => {
                                 data.user = result[0];
                                 data.isLogged = true;
                                 console.log("USER has successfully logged in!");
-                                const userDatas = await UserData.find({});
+                                const userDatas = await UserData.findById(userDataId);
                                 if (userDatas.length === 0) {
                                     const userData = new UserData({data: result[0]});
                                     const savedUserData = await userData.save();
                                     console.log("savedUserData while signin:", savedUserData);
                                     response.json({data, userDataId: savedUserData._id});
                                 } else if (Object.keys(userDatas[0].data).length === 0) {
-                                    const newUserData = await UserData.findByIdAndUpdate(userDatas[0]._id, {$set: {data: result[0]}}, {new: true});
+                                    const newUserData = await UserData.findByIdAndUpdate(userDataId, {$set: {data: result[0]}}, {new: true});
                                     console.log("newUserData while signin:", newUserData);
                                     response.json({data, userDataId: newUserData._id});
                                 }
                                 else {
-                                    response.json({data, userDataId: userDatas[0]._id});
+                                    response.json({data, userDataId: userDatas._id});
                                 }
                             } else {
                                 console.log("password are not equal");
@@ -191,13 +191,13 @@ userRoutes.post("/signin", async (request, response) => {
 });
 
 userRoutes.post("/signin/user", async (request, response) => {
-    const savedUserData = await UserData.find({});
+    const savedUserData = await UserData.findById(req.body.userDataId);
     if (savedUserData.length === 0) {
         response.send({isLogged: false});
     } else {
         console.log("savedUserData in get(signin):", savedUserData);
-        if (savedUserData[0] !== null && Object.keys(savedUserData[0].data).length > 0) {
-            response.send({user: savedUserData[0].data, isLogged: true, userDataId: savedUserData[0]._id});
+        if (savedUserData !== null && Object.keys(savedUserData.data).length > 0) {
+            response.send({user: savedUserData.data, isLogged: true, userDataId: savedUserData._id});
         } else {
             response.send({isLogged: false});
         }
