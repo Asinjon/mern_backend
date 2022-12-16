@@ -221,7 +221,7 @@ const sendVerificationEmail = ({_id, email}, response, data) => {
         subject: "Verify your email",
         html: `<p>Verify your email address to complete the sign up and login into your account</p>
         <p>This link <b>expires in 6 hours</b></p>
-        <p>Press <a href="${currentUrl + "api/auth/verify/" + _id + "/" + uniqueString}">here</a> to proceed</p>`
+        <p>Press <a href="${currentUrl + "/api/auth/verify/" + _id + "/" + uniqueString}">here</a> to proceed</p>`
     };
     const saltRound = 10;
     bcryptjs.hash(uniqueString, saltRound)
