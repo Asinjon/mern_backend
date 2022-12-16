@@ -148,7 +148,6 @@ userRoutes.post("/signin", async (request, response) => {
                                     console.log("savedUserData while signin:", savedUserData);
                                     return response.json({data, userDataId: savedUserData._id});
                                 }
-                                console.log("userDatas in /signin/:", userDatas);
                                 if (Object.keys(userDatas[0].data).length === 0) {
                                     const newUserData = await UserData.findByIdAndUpdate(userDataId, {$set: {data: result[0]}}, {new: true});
                                     console.log("newUserData while signin:", newUserData);
