@@ -213,7 +213,7 @@ userRoutes.post("/signout", async (request, response) => {
     }
 });
 const sendVerificationEmail = ({_id, email}, response, data) => {
-    const currentUrl = "https://edusocialnetwork.herokuapp.com/";
+    const currentUrl = process.env.frontend_url;
     const uniqueString = v4();
     const mailOptions = {
         from: process.env.auth_email,
