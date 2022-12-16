@@ -55,7 +55,7 @@ const uploadPost = multer({storage: postStorage});
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 const corsOptions ={
-  origin: process.env.frontend_url,
+  origin: "http://localhost:3000",
   credentials: true,            //access-contol-allow-credentials:true
   optionSuccessStatus: 200
 }
