@@ -139,7 +139,9 @@ userRoutes.post("/signin", async (request, response) => {
                                 data.user = result[0];
                                 data.isLogged = true;
                                 console.log("USER has successfully logged in!");
+                                console.log("userDataId in /signin/:", userDataId);
                                 const userDatas = await UserData.findById(userDataId);
+                                console.log("userDatas in /signin/:", userDatas);
                                 if (userDatas === null) {
                                     const userData = new UserData({data: result[0]});
                                     const savedUserData = await userData.save();
@@ -191,7 +193,9 @@ userRoutes.post("/signin", async (request, response) => {
 });
 
 userRoutes.post("/signin/user", async (request, response) => {
+    console.log("req.body.userDataId in /signin/user:", req.body.userDataId);
     const savedUserData = await UserData.findById(req.body.userDataId);
+    console.log("savedUserData in /signin/user:", savedUserData);
     if (savedUserData.length === 0) {
         response.send({isLogged: false});
     } else {
