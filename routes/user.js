@@ -213,7 +213,7 @@ userRoutes.post("/signout", async (request, response) => {
     }
 });
 const sendVerificationEmail = ({_id, email}, response, data) => {
-    const currentUrl = process.env.frontend_url;
+    const currentUrl = "https://mern-project-backend.onrender.com";
     const uniqueString = v4();
     const mailOptions = {
         from: process.env.auth_email,
