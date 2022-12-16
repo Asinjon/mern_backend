@@ -24,7 +24,7 @@ const app = express();
 const httpserver = http.createServer(app);
 const io = new Server(httpserver, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: process.env.frontend_url,
   }
 });
 
@@ -55,7 +55,7 @@ const uploadPost = multer({storage: postStorage});
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 const corsOptions ={
-  origin: "http://localhost:3000",
+  origin: process.env.frontend_url,
   credentials: true,            //access-contol-allow-credentials:true
   optionSuccessStatus: 200
 }
