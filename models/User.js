@@ -49,7 +49,7 @@ const userSchema = new mongoose.Schema({
     },
     profile_img: {
         type: String,
-        default: "/noAvatar-big.png"
+        default: "noAvatar-big.png"
     },
     invitations: {type: Array},
     state: {
