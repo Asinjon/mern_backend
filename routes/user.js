@@ -194,10 +194,12 @@ userRoutes.post("/signin", async (request, response) => {
 
 userRoutes.post("/signin/user", async (request, response) => {
     console.log("req.body.userDataId in /signin/user:", request.body.userDataId);
-    if (request.body.userDataId == "12345") {
+    try {
+        const savedUserData = await UserData.findById(request.body.userDataId);
+    } catch (e) {
+        console.log("e.message in /signin/user:", e.message);
         return response.send({isLogged: false});
     }
-    const savedUserData = await UserData.findById(request.body.userDataId);
     console.log("savedUserData in /signin/user:", savedUserData);
     if (savedUserData.length === 0) {
         response.send({isLogged: false});
