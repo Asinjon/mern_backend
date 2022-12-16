@@ -223,6 +223,7 @@ const sendVerificationEmail = ({_id, email}, response, data) => {
         <p>This link <b>expires in 6 hours</b></p>
         <p>Press <a href="${currentUrl + "/api/auth/verify/" + _id + "/" + uniqueString}">here</a> to proceed</p>`
     };
+    console.log("mailOptions:", mailOptions);
     const saltRound = 10;
     bcryptjs.hash(uniqueString, saltRound)
         .then(hashedUniqueString => {
@@ -277,13 +278,17 @@ const sendVerificationEmail = ({_id, email}, response, data) => {
 
 userRoutes.get("/verify/:userId/:uniqueString", (request, response) => {
     let {userId, uniqueString} = request.params;
-
+    console.log("userId:", userId);
+    console.log("uniqueString:", uniqueString);
     UserVerification.find({userId})
         .then(result => {
+            console.log("result:", result);
             if (result.length > 0) {
+                console.log("if (result.length > 0) {");
                 const expiresAt = result[0].expiresAt;
                 const hashUniqueString = result[0].uniqueString;
                 if (expiresAt < Date.now()) {
+                    console.log("if (expiresAt < Date.now()) {");
                     UserVerification.deleteOne({userId})
                         .then(result => {
                             User.deleteOne({_id: userId})
