@@ -40,6 +40,7 @@ userRoutes.post("/signup", (request, response) => {
     }else {
             User.find({email})
             .then(result => {
+                console.log("result in signup:", result);
                 if (result.length) {
                     console.log("IF WORKED");
                     if (username.length < 8) {
